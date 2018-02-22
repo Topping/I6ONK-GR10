@@ -1,0 +1,1023 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "I6ONK API",
+    "version" : "1",
+    "title" : "ONK"
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/Team10TESIS/TESIS_2_0/1",
+  "tags" : [ {
+    "name" : "User",
+    "description" : "Operations to manage different aspects of the user account"
+  }, {
+    "name" : "Stock",
+    "description" : "Operations to manage stocks through the Stock Service"
+  }, {
+    "name" : "Share",
+    "description" : "Operations to manage shares throug the Public Share Owner Control Service"
+  }, {
+    "name" : "Transaction",
+    "description" : "Operations to manage transactions through the Transaction Service"
+  }, {
+    "name" : "Payment",
+    "description" : "Operations to manage payments through the Payment Service"
+  }, {
+    "name" : "Sell",
+    "description" : "Operations to manage sell orders Sell Service"
+  }, {
+    "name" : "Public",
+    "description" : "All operations exposed to both the user and the internal services"
+  }, {
+    "name" : "Private",
+    "description" : "Operations only exposed to internal services"
+  } ],
+  "schemes" : [ "https", "http" ],
+  "paths" : {
+    "/stock" : {
+      "get" : {
+        "tags" : [ "Stock", "Public" ],
+        "summary" : "Get all stocks",
+        "description" : "Gets all stocks",
+        "operationId" : "getAllStocks",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Stock"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Stock", "Public" ],
+        "summary" : "Create a stock",
+        "description" : "Creates a new stock.",
+        "operationId" : "createStock",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Stock"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Successfully created stock",
+            "schema" : {
+              "$ref" : "#/definitions/Stock"
+            }
+          },
+          "400" : {
+            "description" : "Invalid stock supplied"
+          }
+        }
+      }
+    },
+    "/stock/{companyShortName}" : {
+      "get" : {
+        "tags" : [ "Stock", "Public" ],
+        "summary" : "Get specific stock",
+        "description" : "Returns a specific stock",
+        "operationId" : "getStock",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "companyShortName",
+          "in" : "path",
+          "description" : "Name of the company to find stock for",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/Stock"
+            }
+          },
+          "400" : {
+            "description" : "Invalid company name given"
+          },
+          "404" : {
+            "description" : "Company not found"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Stock", "Public" ],
+        "summary" : "Update stock",
+        "description" : "Updates an existing stock",
+        "operationId" : "updateStock",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "companyShortName",
+          "in" : "path",
+          "description" : "Name of company that needs to be updated",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Stock object with new information",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Stock"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Update successful",
+            "schema" : {
+              "$ref" : "#/definitions/Stock"
+            }
+          },
+          "400" : {
+            "description" : "Invalid stock supplied"
+          },
+          "404" : {
+            "description" : "Requested stock not found"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Stock", "Public" ],
+        "summary" : "Delete a stock",
+        "description" : "Deletes an existing stock",
+        "operationId" : "deleteStock",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "companyShortName",
+          "in" : "path",
+          "description" : "Name of the company that needs to be deleted",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Stock deleted"
+          },
+          "400" : {
+            "description" : "Invalid company name"
+          },
+          "404" : {
+            "description" : "Company not found"
+          }
+        }
+      }
+    },
+    "/share" : {
+      "get" : {
+        "tags" : [ "Share", "Public" ],
+        "summary" : "Get all share holdings",
+        "operationId" : "getAllShares",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Share"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Share", "Public" ],
+        "summary" : "Create a new share holding",
+        "operationId" : "createShares",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Share"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Shares created",
+            "schema" : {
+              "$ref" : "#/definitions/Share"
+            }
+          },
+          "400" : {
+            "description" : "Invalid share supplied"
+          }
+        }
+      }
+    },
+    "/share/{userId}" : {
+      "get" : {
+        "tags" : [ "Share", "Public" ],
+        "summary" : "Get shares belonging to user with specified Id",
+        "operationId" : "getShares",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Share"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid userId"
+          },
+          "404" : {
+            "description" : "Shares for UserId not found"
+          }
+        }
+      }
+    },
+    "/share/{userId}/{shareId}" : {
+      "get" : {
+        "tags" : [ "Share", "Public" ],
+        "summary" : "Get a specific share belonging to user",
+        "operationId" : "getShare",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "shareId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/Share"
+            }
+          },
+          "400" : {
+            "description" : "Invalid User or Share Id"
+          },
+          "404" : {
+            "description" : "User or shares not found"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Share", "Public" ],
+        "summary" : "Update a specific share belonging to user",
+        "operationId" : "updateShare",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "shareId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Share"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Share updated",
+            "schema" : {
+              "$ref" : "#/definitions/Share"
+            }
+          },
+          "400" : {
+            "description" : "Invalid parameters"
+          },
+          "404" : {
+            "description" : "User or share not found"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Share", "Public" ],
+        "summary" : "Deletes a specific share belonging to user",
+        "operationId" : "deleteShare",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "shareId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Share successfully deleted"
+          },
+          "400" : {
+            "description" : "Invalid parameters specified"
+          },
+          "404" : {
+            "description" : "User or share not found"
+          }
+        }
+      }
+    },
+    "/share/transfer" : {
+      "post" : {
+        "tags" : [ "Share", "Private" ],
+        "summary" : "Transfer shares from one user to another",
+        "operationId" : "transferShares",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/TransferRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Transfer started"
+          },
+          "400" : {
+            "description" : "Invalid parameters specified"
+          }
+        }
+      }
+    },
+    "/trans" : {
+      "post" : {
+        "tags" : [ "Transaction", "Private" ],
+        "summary" : "Start a new transaction",
+        "operationId" : "createTransaction",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Transaction"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Transaction created",
+            "schema" : {
+              "$ref" : "#/definitions/Transaction"
+            }
+          },
+          "400" : {
+            "description" : "Invalid transaction specified"
+          }
+        }
+      }
+    },
+    "/trans/callback/{transId}" : {
+      "post" : {
+        "tags" : [ "Transaction", "Private" ],
+        "summary" : "Callback from Public Share Owner Service",
+        "operationId" : "transferCallback",
+        "parameters" : [ {
+          "name" : "transId",
+          "in" : "path",
+          "description" : "Id of the transaction to proceed with",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          },
+          "404" : {
+            "description" : "Transaction not found."
+          }
+        }
+      }
+    },
+    "/trans/{userId}" : {
+      "get" : {
+        "tags" : [ "Transaction", "Public" ],
+        "summary" : "Return all transactions for user",
+        "operationId" : "getTransactions",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Transaction"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid user Id"
+          },
+          "404" : {
+            "description" : "User Id not found"
+          }
+        }
+      }
+    },
+    "/trans/{userId}/{shareId}" : {
+      "get" : {
+        "tags" : [ "Transaction", "Public" ],
+        "summary" : "Returns specific transaction for user",
+        "operationId" : "getTransaction",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "shareId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "schema" : {
+              "$ref" : "#/definitions/Transaction"
+            }
+          },
+          "400" : {
+            "description" : "Invalid user id or share id"
+          },
+          "404" : {
+            "description" : "User or share not found"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Transaction", "Private" ],
+        "summary" : "Update an existing transaction for user",
+        "operationId" : "updateTransaction",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "shareId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Transaction"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/Transaction"
+            }
+          },
+          "400" : {
+            "description" : "Invalid parameters specified"
+          },
+          "404" : {
+            "description" : "User or transaction not found"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Transaction", "Private" ],
+        "summary" : "Delete a transaction",
+        "operationId" : "deleteTransaction",
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "shareId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Deleted"
+          },
+          "400" : {
+            "description" : "Invalid parameters given"
+          },
+          "404" : {
+            "description" : "User or transaction not found"
+          }
+        }
+      }
+    },
+    "/pay/reserve" : {
+      "post" : {
+        "tags" : [ "Payment", "Private" ],
+        "summary" : "Reserve the specified amount of currency from the buyer account.",
+        "operationId" : "createReservation",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/PaymentReservation"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Payment reservation created",
+            "schema" : {
+              "$ref" : "#/definitions/PaymentReservation"
+            }
+          },
+          "400" : {
+            "description" : "Invalid reservation specified"
+          }
+        }
+      }
+    },
+    "/sell" : {
+      "get" : {
+        "tags" : [ "Sell", "Public" ],
+        "summary" : "Query for sell orders",
+        "parameters" : [ {
+          "name" : "sellerId",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "orderId",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Found sell orders",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/SellOrder"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid parameters"
+          },
+          "404" : {
+            "description" : "No sell orders found"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Sell", "Public" ],
+        "summary" : "Create a new sell order",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/SellOrder"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Sell order created",
+            "schema" : {
+              "$ref" : "#/definitions/SellOrder"
+            }
+          },
+          "400" : {
+            "description" : "Invalid sell order specified"
+          }
+        }
+      }
+    },
+    "/sell/{orderId}" : {
+      "put" : {
+        "tags" : [ "Sell", "Public" ],
+        "summary" : "Update a specific sell order",
+        "parameters" : [ {
+          "name" : "orderId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/SellOrder"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Sell order updated",
+            "schema" : {
+              "$ref" : "#/definitions/SellOrder"
+            }
+          },
+          "400" : {
+            "description" : "Invalid sell order"
+          },
+          "404" : {
+            "description" : "Sell order not found "
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Sell", "Public" ],
+        "summary" : "Delete a specific sell order",
+        "parameters" : [ {
+          "name" : "orderId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Sell order deleted"
+          },
+          "400" : {
+            "description" : "Invalid sell order Id"
+          },
+          "404" : {
+            "description" : "Sell order not found"
+          }
+        }
+      }
+    },
+    "/sell/reserve/{orderId}" : {
+      "post" : {
+        "tags" : [ "Sell", "Private" ],
+        "summary" : "Request shares in sell order be reserved for purchase",
+        "parameters" : [ {
+          "name" : "orderId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "amount",
+          "in" : "query",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "buyer",
+          "in" : "query",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Reservation created",
+            "schema" : {
+              "$ref" : "#/definitions/SellOrder"
+            }
+          },
+          "400" : {
+            "description" : "Invalid parameters specified"
+          },
+          "404" : {
+            "description" : "Sell order not found"
+          }
+        }
+      }
+    },
+    "/user/{userId}/balance" : {
+      "put" : {
+        "tags" : [ "User", "Private" ],
+        "summary" : "Make changes to a users balance",
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "action",
+          "in" : "query",
+          "description" : "Describes what action to take: deposit or withdraw",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "amount",
+          "in" : "query",
+          "required" : true,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Requested balance change successfull"
+          },
+          "400" : {
+            "description" : "Invalid parameters supplied"
+          },
+          "404" : {
+            "description" : "User not found"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "bearerToken" : {
+      "type" : "apiKey",
+      "name" : "Authorization",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "User" : {
+      "type" : "object",
+      "required" : [ "email", "firstName", "lastName", "password" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "firstName" : {
+          "type" : "string"
+        },
+        "lastName" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Stock" : {
+      "type" : "object",
+      "required" : [ "companyName", "companyShortName", "value" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "companyName" : {
+          "type" : "string"
+        },
+        "companyShortName" : {
+          "type" : "string"
+        },
+        "value" : {
+          "type" : "number",
+          "minimum" : 0
+        }
+      },
+      "example" : {
+        "companyName" : "companyName",
+        "id" : 0,
+        "companyShortName" : "companyShortName",
+        "value" : 0.602745618307040320615897144307382404804229736328125
+      }
+    },
+    "Share" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "stock" : {
+          "$ref" : "#/definitions/Stock"
+        },
+        "amount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "ownerId" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      },
+      "example" : {
+        "amount" : 6,
+        "id" : 0,
+        "stock" : {
+          "companyName" : "companyName",
+          "id" : 0,
+          "companyShortName" : "companyShortName",
+          "value" : 0.602745618307040320615897144307382404804229736328125
+        },
+        "ownerId" : 1
+      }
+    },
+    "SellOrder" : {
+      "type" : "object",
+      "required" : [ "amount", "price", "sellerId", "stock" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "sellerId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "stock" : {
+          "$ref" : "#/definitions/Stock"
+        },
+        "amount" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Number of shares to sell"
+        },
+        "price" : {
+          "type" : "number",
+          "description" : "Price per share in USD"
+        },
+        "state" : {
+          "$ref" : "#/definitions/SellOrderState"
+        },
+        "creationTime" : {
+          "type" : "string"
+        },
+        "leashTime" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Time in minutes until sell order expires"
+        }
+      },
+      "example" : {
+        "amount" : 5,
+        "sellerId" : 5,
+        "creationTime" : "creationTime",
+        "price" : 2.3021358869347654518833223846741020679473876953125,
+        "leashTime" : 7,
+        "id" : 1,
+        "state" : { },
+        "stock" : {
+          "companyName" : "companyName",
+          "id" : 0,
+          "companyShortName" : "companyShortName",
+          "value" : 0.602745618307040320615897144307382404804229736328125
+        }
+      }
+    },
+    "PaymentReservation" : {
+      "type" : "object",
+      "required" : [ "amount", "buyerId", "sellerId", "transactionId" ],
+      "properties" : {
+        "transactionId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "buyerId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "sellerId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "amount" : {
+          "type" : "number",
+          "description" : "Money reserved from transaction buyer in USD"
+        }
+      },
+      "example" : {
+        "amount" : 5.962133916683182377482808078639209270477294921875,
+        "sellerId" : 1,
+        "buyerId" : 6,
+        "transactionId" : 0
+      }
+    },
+    "Transaction" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "state" : {
+          "$ref" : "#/definitions/TransactionState"
+        },
+        "buyerId" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "SellOrder" : {
+          "$ref" : "#/definitions/SellOrder"
+        }
+      },
+      "example" : {
+        "id" : 0,
+        "state" : { },
+        "buyerId" : 6,
+        "SellOrder" : {
+          "amount" : 5,
+          "sellerId" : 5,
+          "creationTime" : "creationTime",
+          "price" : 2.3021358869347654518833223846741020679473876953125,
+          "leashTime" : 7,
+          "id" : 1,
+          "state" : { },
+          "stock" : {
+            "companyName" : "companyName",
+            "id" : 0,
+            "companyShortName" : "companyShortName",
+            "value" : 0.602745618307040320615897144307382404804229736328125
+          }
+        }
+      }
+    },
+    "TransferRequest" : {
+      "type" : "object",
+      "properties" : {
+        "companyShortName" : {
+          "type" : "string",
+          "description" : "Short name of the company to transfer stocks in"
+        },
+        "currentOwnerId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Id of the current share owner"
+        },
+        "newOwnerId" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Id of the new share owner"
+        },
+        "amount" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Amount of shares to transfer"
+        },
+        "callbackUrl" : {
+          "type" : "string",
+          "description" : "Url to send post request to once transfer is ready to commit"
+        }
+      },
+      "example" : {
+        "amount" : 1,
+        "newOwnerId" : 6,
+        "callbackUrl" : "callbackUrl",
+        "currentOwnerId" : 0,
+        "companyShortName" : "companyShortName"
+      }
+    },
+    "TransactionState" : {
+      "type" : "string",
+      "enum" : [ "In Progress", "Awaiting Transfer", "Processing Payment", "Canceled", "Finished" ]
+    },
+    "SellOrderState" : {
+      "type" : "string",
+      "enum" : [ "Available", "Reserved" ],
+      "default" : "Available"
+    },
+    "BalanceAction" : {
+      "type" : "string",
+      "enum" : [ "Withdraw", "Deposit" ]
+    }
+  }
+}
